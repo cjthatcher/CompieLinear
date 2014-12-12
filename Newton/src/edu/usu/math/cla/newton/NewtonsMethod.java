@@ -6,12 +6,15 @@ public class NewtonsMethod {
 	{
 		double difference = tolerance * 10;
 		double guess = startGuess;
+		int maxIterations = 10000;
+		int count = 0;
 		
-		while (difference > tolerance)
+		while (difference > tolerance && count < maxIterations)
 		{
 			double oldValue = guess;
 			guess = guess - (f.evaluate(guess) / fPrime.evaluate(guess));
 			difference = Math.abs(oldValue - guess);
+			count++;
 		}
 		
 		return guess;

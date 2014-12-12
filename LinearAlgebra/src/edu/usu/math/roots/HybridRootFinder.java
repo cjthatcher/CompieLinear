@@ -126,6 +126,25 @@ public class HybridRootFinder {
 		return origLocation - ((origValue * h) / (origValue - oldValue));
 	}
 	
+	public static double findRootSecantStyle(Function f, double startGuess, double tolerance)
+	{
+		double oldLocation = startGuess;
+		double currentLocation = oldLocation + 0.0005;
+		double currentValue = f.evaluate(startGuess);
+		double nextLocation = getNextSecantLocation(f, oldLocation, currentLocation);
+		double nextValue = f.evaluate(nextLocation);
+		
+		while (Math.abs(nextValue) > tolerance)
+		{			
+			oldLocation = currentLocation;
+			currentLocation = nextLocation;
+			nextLocation = getNextSecantLocation(f, currentLocation, oldLocation);
+			nextValue = f.evaluate(nextLocation);
+		}
+		
+		return nextValue;
+	}
+	
 	public static void main(String[] args)
 	{
 		Function f = new Function() {
